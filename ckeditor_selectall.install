@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Check requirements for the CKEditor Select All module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function ckeditor_selectall_requirements($phase) {
+  $requirements = [];
+
+  if ($phase == 'install' || $phase == 'runtime') {
+    $plugin_detected = file_exists(DRUPAL_ROOT . '/libraries/selectall/plugin.js');
+
+    if ($plugin_detected) {
+      $requirements['selectall'] = [
+        'title' => t('CKEditor Select All'),
+        'value' => t('Plugin detected'),
+        'severity' => REQUIREMENT_OK,
+      ];
+    }
+    else {
+      $requirements['selectall'] = [
+        'title' => t('CKEditor Select All'),
+        'value' => t('Plugin not detected'),
+        'severity' => REQUIREMENT_ERROR,
+        'description' => t('Before you can use the CKEditor Select All module, you need to download the select all plugin from ckeditor.com and place it in /libraries/selectall folder. <a href=":plugin_url">Get the plugin here</a>.', [':plugin_url' => 'https://download.ckeditor.com/selectall/releases/selectall_4.8.0.zip']),
+      ];
+    }
+  }
+
+  return $requirements;
+}

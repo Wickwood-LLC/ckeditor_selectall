@@ -1,0 +1,8 @@
+name: CKEditor Select All
+type: module
+description: This plugin module adds the select all feature to CKEditor in Drupal 8
+package: CKEditor
+dependencies:
+  - ckeditor
+  - editor
+core: '8.x'
